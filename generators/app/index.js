@@ -4,7 +4,7 @@ var Path = require('path');
 module.exports = Base.extend({
     constructor: function () {
         Base.apply(this, arguments);
-        this.option('port', { type: Number});
+        this.option('port', { type: Number, defaults: '8000'});
         this.option('version', { type: String, defaults: '1.0.0'});
     },
 
