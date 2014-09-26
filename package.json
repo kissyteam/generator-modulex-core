@@ -1,13 +1,13 @@
 {
     "name": "generator-modulex-core",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "yeoman generator for modulex core modules",
-    "keywords": ["yeoman-generator"],
+    "keywords": ["yeoman-generator", "modulex"],
     "dependencies": {
         "yeoman-generator": "^0.17.3"
     },
     "engines": {
-        "node": ">=0.10"
+        "node": ">=0.11"
     },
     "license": "MIT",
     "repository": {

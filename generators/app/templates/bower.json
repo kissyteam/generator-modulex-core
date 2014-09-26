@@ -1,0 +1,21 @@
+{
+    "name": "modulex-<%= appname %>",
+    "author": "yiminghe <yiminghe@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/kissyteam/<%= appname %>.git"
+    },
+    "ignore": [
+        "**/*",
+        "!build/**/*",
+        "!lib/**/*",
+        "!meta/**/*",
+        "!index.js"
+    ],
+    "dependencies": {
+        "modulex": "*",
+        "modulex-feature": "*",
+        "modulex-ua": "*"
+    }
+}
