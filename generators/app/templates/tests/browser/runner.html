@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<h1 style="text-align: center">io tests</h1>
+<h1 style="text-align: center"><%= appname %> tests</h1>
 
 <div id='mocha'></div>
 <script src="/mx_modules/modulex-debug.js"></script>
@@ -79,12 +79,7 @@
                 }
             } else {
                 runner = mocha.run();
-                runner.on('fail', function (test, err) {
-                    alert(test.title + ':' + (err.message || err));
-                });
             }
-            window.onerror = function () {
-            };
         });
     })();
 </script>

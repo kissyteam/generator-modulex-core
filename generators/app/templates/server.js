@@ -38,7 +38,7 @@ function *modularize(next) {
 }
 
 // parse application/x-www-form-urlencoded
-app.use(koaBody({formidable:{uploadDir: __dirname},multipart: true}));
+app.use(koaBody({formidable: {uploadDir: __dirname}, multipart: true}));
 app.use(function *(next) {
     if (path.extname(this.path) === '.jss') {
         var func = require(path.resolve(__dirname, this.path.substring(1))).call(this);
@@ -59,7 +59,7 @@ app.use(serveIndex(cwd, {
 app.use(serve(cwd, {
     hidden: true
 }));
-var port = process.env.PORT || 8021;
+var port = process.env.PORT || parseInt('<%= port%>', 10);
 app.listen(port);
 app.listen(8022);
 gutil.log('server start at ' + port);
