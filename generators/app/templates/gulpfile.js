@@ -1,3 +1,7 @@
+/**
+ *  a build template for mx modules
+ *  @author yiminghe@gmail.com
+ */
 var gulp = require('gulp');
 var filter = require('gulp-filter');
 var kclean = require('gulp-kclean');
@@ -14,9 +18,10 @@ var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var jscs = require('gulp-jscs');
 var replace = require('gulp-replace');
+var minifyCSS = require('gulp-minify-css');
 
 gulp.task('lint', function () {
-    return gulp.src('./lib/**/*.js')
+    return gulp.src(['./lib/**/*.js', '!./lib/**/xtpl/**/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(jshint.reporter('fail'))
@@ -65,6 +70,33 @@ gulp.task('mx', function () {
 
 gulp.task('auto-d', function () {
     require('auto-deps')(cwd);
+});
+
+gulp.task('watch', function () {
+    gulp.watch('lib/**/*.xtpl', ['xtpl']);
+});
+
+gulp.task('xtpl', function () {
+    var gulpXTemplate = require('gulp-xtemplate');
+    var XTemplate = require('xtemplate');
+    gulp.src('lib/**/*.xtpl').pipe(gulpXTemplate({
+        wrap: false,
+        runtime: 'xtemplate/runtime',
+        suffix: '.xtpl',
+        XTemplate: XTemplate
+    })).pipe(gulp.dest('lib'))
+});
+
+gulp.task('less', function () {
+    var less = require('gulp-less');
+    return gulp.src('lib/date-picker/assets/dpl.less').pipe(less({
+        paths: [path.join(__dirname, 'lib/date-picker/assets/')]
+    }))
+        .pipe(rename('dpl-debug.css'))
+        .pipe(gulp.dest('lib/date-picker/assets/'))
+        .pipe(rename('dpl.css'))
+        .pipe(minifyCSS({keepBreaks: true}))
+        .pipe(gulp.dest('lib/date-picker/assets/'));
 });
 
 gulp.task('default', ['build']);
