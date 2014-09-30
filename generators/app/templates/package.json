@@ -24,6 +24,7 @@
         ]
     },
     "devDependencies": {
+        "combined-stream": "0.0.5",
         "aggregate-bower": "^1.0.2",
         "async": "^0.9.0",
         "auto-deps": "^1.0.3",
@@ -31,8 +32,6 @@
         "gulp": "^3.8.7",
         "gulp-clean": "^0.3.1",
         "gulp-filter": "^1.0.0",
-        "gulp-footer": "^1.0.5",
-        "gulp-header": "^1.0.5",
         "gulp-jscs": "^1.1.0",
         "gulp-jshint": "^1.8.4",
         "gulp-minify-css": "^0.3.10",
