@@ -79,7 +79,7 @@ gulp.task('watch', function () {
 gulp.task('xtpl', function () {
     var gulpXTemplate = require('gulp-xtemplate');
     var XTemplate = require('xtemplate');
-    gulp.src('lib/**/*.xtpl').pipe(gulpXTemplate({
+    return gulp.src('lib/**/*.xtpl').pipe(gulpXTemplate({
         wrap: false,
         runtime: 'xtemplate/runtime',
         suffix: '.xtpl',
