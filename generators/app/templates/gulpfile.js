@@ -35,32 +35,44 @@ gulp.task('clean', function () {
 });
 
 gulp.task('build', ['lint'], function () {
-    var tag = '<%= appname %>';
-    var packages = {};
-    packages[tag] = {
-        base: path.resolve(src, tag)
+    var async = require('async');
+    var tasks = [];
+    var excludes = {
+        '<%= appname %>': []
     };
-    return gulp.src('./lib/' + tag + '.js')
-        .pipe(modulex({
-            modulex: {
-                packages: packages
-            }
-        }))
-        .pipe(kclean({
-            files: [
-                {
-                    src: './lib/' + tag + '-debug.js',
-                    outputModule: tag
-                }
-            ]
-        }))
-        .pipe(replace(/@VERSION@/g, packageInfo.version))
-        .pipe(gulp.dest(path.resolve(build)))
-        .pipe(filter(tag + '-debug.js'))
-        .pipe(replace(/@DEBUG@/g, ''))
-        .pipe(uglify())
-        .pipe(rename(tag + '.js'))
-        .pipe(gulp.dest(path.resolve(build)));
+    Object.keys(excludes).forEach(function (tag) {
+        var packages = {};
+        packages[tag] = {
+            base: path.resolve(src, tag)
+        };
+        var basename = path.basename(tag);
+        var dirname = path.dirname(tag);
+        tasks.push(function (done) {
+            gulp.src('./lib/' + tag + '.js')
+                .pipe(modulex({
+                    modulex: {
+                        packages: packages
+                    },
+                    excludeModules: excludes[tag]
+                }))
+                .pipe(kclean({
+                    files: [
+                        {
+                            src: './lib/' + tag + '-debug.js',
+                            outputModule: tag
+                        }
+                    ]
+                }))
+                .pipe(replace(/@VERSION@/g, packageInfo.version))
+                .pipe(gulp.dest(path.resolve(build, dirname)))
+                .pipe(filter(basename + '-debug.js'))
+                .pipe(replace(/@DEBUG@/g, ''))
+                .pipe(uglify())
+                .pipe(rename(basename + '.js'))
+                .pipe(gulp.dest(path.resolve(build, dirname))).on('end', done);
+        });
+    });
+    async.parallel(tasks, done);
 });
 
 gulp.task('mx', function () {
