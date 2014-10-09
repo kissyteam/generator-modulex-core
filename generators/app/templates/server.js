@@ -61,5 +61,4 @@ app.use(serve(cwd, {
 }));
 var port = process.env.PORT || parseInt('<%= port%>', 10);
 app.listen(port);
-app.listen(8022);
 gutil.log('server start at ' + port);

@@ -1,6 +1,6 @@
 {
     "name": "generator-modulex-core",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "yeoman generator for modulex core modules",
     "keywords": ["yeoman-generator", "modulex"],
     "dependencies": {
