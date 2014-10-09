@@ -22,3 +22,7 @@ npm start
 ```
 
 see ``demo/index.html`` for script reference.
+
+## License
+
+<%= appname %> is released under the MIT license.
