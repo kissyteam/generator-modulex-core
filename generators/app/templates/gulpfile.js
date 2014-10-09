@@ -34,7 +34,7 @@ gulp.task('clean', function () {
     }).pipe(clean());
 });
 
-gulp.task('build', ['lint'], function () {
+gulp.task('build', ['lint'], function (done) {
     var async = require('async');
     var tasks = [];
     var excludes = {
