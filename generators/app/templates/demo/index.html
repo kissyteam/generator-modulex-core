@@ -8,6 +8,7 @@
 <script src="/mx_modules/meta.js"></script>
 <script>
     modulex.config({
+        base: '/mx_modules',
         packages: {
             '<%= appname %>': {
                 filter: isCoverage ? 'coverage' : isBuild ? 'debug' : '',
