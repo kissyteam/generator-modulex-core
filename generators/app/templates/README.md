@@ -9,3 +9,16 @@
 [![Dependency Status](https://gemnasium.com/kissyteam/<%= appname %>.png)](https://gemnasium.com/kissyteam/<%= appname %>)
 [![Bower version](https://badge.fury.io/bo/modulex-<%= appname %>.svg)](http://badge.fury.io/bo/modulex-<%= appname %>)
 [![node version](https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square)](http://nodejs.org/download/)
+
+
+## How To Contribute
+
+```
+npm install gulp bower -g
+npm install
+bower install
+gulp mx
+npm start
+```
+
+see ``demo/index.html`` for script reference.

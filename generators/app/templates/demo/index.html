@@ -2,5 +2,22 @@
 <html>
 <body>
 <p>this is <%= appname %>@<%= version %> demo</p>
+<script src="/mx_modules/modulex-debug.js"></script>
+<script src="/mx_modules/ua-debug.js"></script>
+<script src="/mx_modules/feature-debug.js"></script>
+<script src="/mx_modules/meta.js"></script>
+<script>
+    modulex.config({
+        packages: {
+            '<%= appname %>': {
+                filter: isCoverage ? 'coverage' : isBuild ? 'debug' : '',
+                base: isBuild ? '/build/<%= appname %>' : '/lib/<%= appname %>'
+            }
+        }
+    });
+    modulex.use('<%= appname %>',function(<%= appname %>){
+        //  TODO with <%= appname %>
+    });
+</script>
 </body>
 </html>
