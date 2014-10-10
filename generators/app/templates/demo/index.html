@@ -7,7 +7,7 @@
 <script src="/mx_modules/feature-debug.js"></script>
 <script src="/mx_modules/meta.js"></script>
 <script>
-    modulex.config({
+    require.config({
         base: '/mx_modules',
         packages: {
             '<%= appname %>': {
@@ -16,7 +16,7 @@
             }
         }
     });
-    modulex.use('<%= appname %>',function(<%= appname %>){
+    require('<%= appname %>',function(<%= appname %>){
         //  TODO with <%= appname %>
     });
 </script>

@@ -27,7 +27,7 @@ function *modularize(next) {
         return;
     }
     var code = fs.readFileSync(filePath, 'utf-8');
-    code = 'modulex.add(function(require,exports,module){' + code + '});';
+    code = 'define(function(require,exports,module){' + code + '});';
     if (req.path.indexOf('-coverage.js') !== -1) {
         req.nodeJsCoverCode = code;
         yield *next;
