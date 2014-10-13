@@ -101,14 +101,18 @@ gulp.task('xtpl', function () {
 
 gulp.task('less', function () {
     var less = require('gulp-less');
-    return gulp.src('lib/date-picker/assets/dpl.less').pipe(less({
-        paths: [path.join(__dirname, 'lib/date-picker/assets/')]
+    return gulp.src('lib/<%= appname %>/assets/dpl.less').pipe(less({
+        paths: [path.join(__dirname, 'bower_components')]
     }))
-        .pipe(rename('dpl-debug.css'))
-        .pipe(gulp.dest('lib/date-picker/assets/'))
-        .pipe(rename('dpl.css'))
+        .pipe(rename(function (path) {
+            path.basename += '-debug';
+        }))
+        .pipe(gulp.dest('build/<%= appname %>/assets/'))
+        .pipe(rename(function (path) {
+            path.basename = path.basename.replace('-debug', '');
+        }))
         .pipe(minifyCSS({keepBreaks: true}))
-        .pipe(gulp.dest('lib/date-picker/assets/'));
+        .pipe(gulp.dest('build/<%= appname %>/assets/'));
 });
 
 gulp.task('default', ['build']);

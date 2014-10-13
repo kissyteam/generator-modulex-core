@@ -1,17 +1,21 @@
 <!doctype html>
 <html>
+<head>
+    <title><%= appname %>@<%= version %> demo</title>
+</head>
 <body>
-<p>this is <%= appname %>@<%= version %> demo</p>
+<h1 style="text-align: center"><%= appname %>@<%= version %> demo</h1>
 <script src="/mx_modules/modulex-debug.js"></script>
 <script src="/mx_modules/ua-debug.js"></script>
 <script src="/mx_modules/feature-debug.js"></script>
 <script src="/mx_modules/meta.js"></script>
 <script>
+    var isBuild = location.href.indexOf('build') !== -1;
     require.config({
         base: '/mx_modules',
         packages: {
             '<%= appname %>': {
-                filter: isCoverage ? 'coverage' : isBuild ? 'debug' : '',
+                filter: isBuild ? 'debug' : '',
                 base: isBuild ? '/build/<%= appname %>' : '/lib/<%= appname %>'
             }
         }
