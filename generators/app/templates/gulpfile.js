@@ -19,7 +19,6 @@ var stylish = require('jshint-stylish');
 var jscs = require('gulp-jscs');
 var replace = require('gulp-replace');
 var minifyCSS = require('gulp-minify-css');
-var wrapper = require('gulp-wrapper');
 var appname = packageInfo.name;
 
 gulp.task('lint', function () {
@@ -42,6 +41,7 @@ gulp.task('tag', function (done) {
     cp.exec('git tag ' + version + ' | git push origin ' + version + ':' + version + ' | git push origin master:master', done);
 });
 
+var wrapper = require('gulp-wrapper');
 var date = new Date();
 var header = ['/*',
         'Copyright ' + date.getFullYear() + ', ' + packageInfo.name + '@' + packageInfo.version,
