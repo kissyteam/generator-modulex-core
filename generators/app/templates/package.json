@@ -55,7 +55,7 @@
         "node-jscover-handler": "^1.0.3",
         "simulate-dom-event": "^1.0.1",
         "precommit-hook": "^1.0.7",
-        "xtemplate":"3.2.2",
+        "xtemplate":"3.x",
         "gulp-wrapper": "^0.1.5",
         "gulp-xtemplate": "^1.1.0"
     },
