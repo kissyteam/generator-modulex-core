@@ -20,12 +20,6 @@ var jscs = require('gulp-jscs');
 var replace = require('gulp-replace');
 var minifyCSS = require('gulp-minify-css');
 var wrapper = require('gulp-wrapper');
-var date = new Date();
-var header = ['/*',
-        'Copyright ' + date.getFullYear() + ', ' + packageInfo.name + '@' + packageInfo.version,
-        packageInfo.license + ' Licensed',
-        'build time: ' + (date.toGMTString()),
-    '*/', ''].join('\n');
 var appname = packageInfo.name;
 
 gulp.task('lint', function () {
@@ -41,6 +35,19 @@ gulp.task('clean', function () {
         read: false
     }).pipe(clean());
 });
+
+gulp.task('tag', function (done) {
+    var cp = require('child_process');
+    var version = packageInfo.version;
+    cp.exec('git tag ' + version + ' | git push origin ' + version + ':' + version + ' | git push origin master:master', done);
+});
+
+var date = new Date();
+var header = ['/*',
+        'Copyright ' + date.getFullYear() + ', ' + packageInfo.name + '@' + packageInfo.version,
+        packageInfo.license + ' Licensed',
+        'build time: ' + (date.toGMTString()),
+    '*/', ''].join('\n');
 
 gulp.task('build', ['lint'], function (done) {
     var async = require('async');
@@ -110,11 +117,7 @@ gulp.task('xtpl', function () {
     })).pipe(gulp.dest('lib'))
 });
 
-gulp.task('tag', function (done) {
-    var cp = require('child_process');
-    var version = packageInfo.version;
-    cp.exec('git tag ' + version + ' | git push origin ' + version + ':' + version + ' | git push origin master:master', done);
-});
+
 
 gulp.task('less', function () {
     var less = require('gulp-less');
