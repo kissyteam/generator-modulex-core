@@ -19,6 +19,13 @@ var stylish = require('jshint-stylish');
 var jscs = require('gulp-jscs');
 var replace = require('gulp-replace');
 var minifyCSS = require('gulp-minify-css');
+var wrapper = require('gulp-wrapper');
+var date = new Date();
+var header = ['/*',
+        'Copyright ' + date.getFullYear() + ', ' + packageInfo.name + '@' + packageInfo.version,
+        packageInfo.license + ' Licensed',
+        'build time: ' + (date.toGMTString()),
+    '*/', ''].join('\n');
 
 gulp.task('lint', function () {
     return gulp.src(['./lib/**/*.js', '!./lib/**/xtpl/**/*.js'])
@@ -64,6 +71,9 @@ gulp.task('build', ['lint'], function (done) {
                     ]
                 }))
                 .pipe(replace(/@VERSION@/g, packageInfo.version))
+                .pipe(wrapper({
+                    header: header
+                }))
                 .pipe(gulp.dest(path.resolve(build, dirname)))
                 .pipe(filter(basename + '-debug.js'))
                 .pipe(replace(/@DEBUG@/g, ''))
@@ -97,6 +107,12 @@ gulp.task('xtpl', function () {
         suffix: '.xtpl',
         XTemplate: XTemplate
     })).pipe(gulp.dest('lib'))
+});
+
+gulp.task('tag',function(done){
+    var cp = require('child_process');
+    var version = packageInfo.version;
+    cp.exec('git tag '+version +' | git push origin '+version+':'+version+' | git push origin master:master',done);
 });
 
 gulp.task('less', function () {
