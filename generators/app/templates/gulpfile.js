@@ -26,6 +26,7 @@ var header = ['/*',
         packageInfo.license + ' Licensed',
         'build time: ' + (date.toGMTString()),
     '*/', ''].join('\n');
+var appname = packageInfo.name;
 
 gulp.task('lint', function () {
     return gulp.src(['./lib/**/*.js', '!./lib/**/xtpl/**/*.js'])
@@ -45,8 +46,8 @@ gulp.task('build', ['lint'], function (done) {
     var async = require('async');
     var tasks = [];
     var excludes = {
-        '<%= appname %>': []
     };
+    excludes[appname] = [];
     Object.keys(excludes).forEach(function (tag) {
         var packages = {};
         packages[tag] = {
@@ -109,26 +110,26 @@ gulp.task('xtpl', function () {
     })).pipe(gulp.dest('lib'))
 });
 
-gulp.task('tag',function(done){
+gulp.task('tag', function (done) {
     var cp = require('child_process');
     var version = packageInfo.version;
-    cp.exec('git tag '+version +' | git push origin '+version+':'+version+' | git push origin master:master',done);
+    cp.exec('git tag ' + version + ' | git push origin ' + version + ':' + version + ' | git push origin master:master', done);
 });
 
 gulp.task('less', function () {
     var less = require('gulp-less');
-    return gulp.src('lib/<%= appname %>/assets/dpl.less').pipe(less({
+    return gulp.src('lib/' + appname + '/assets/dpl.less').pipe(less({
         paths: [path.join(__dirname, 'bower_components')]
     }))
         .pipe(rename(function (path) {
             path.basename += '-debug';
         }))
-        .pipe(gulp.dest('build/<%= appname %>/assets/'))
+        .pipe(gulp.dest('build/' + appname + '/assets/'))
         .pipe(rename(function (path) {
             path.basename = path.basename.replace('-debug', '');
         }))
         .pipe(minifyCSS({keepBreaks: true}))
-        .pipe(gulp.dest('build/<%= appname %>/assets/'));
+        .pipe(gulp.dest('build/' + appname + '/assets/'));
 });
 
 gulp.task('default', ['build']);
